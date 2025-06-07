@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ricardo Santos | Portefólio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0b0b0b;
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Formas geométricas */
+    .shape {
+      position: absolute;
+      border: 2px solid rgba(0, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: float 20s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    .shape.square {
+      border-radius: 0;
+      animation: floatAlt 25s infinite ease-in-out;
+    }
+
+    .shape.triangle::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 52px solid rgba(0, 255, 255, 0.15);
+      top: 0;
+      left: 0;
+    }
+
+    .shape.cross::before {
+      content: '✕';
+      font-size: 40px;
+      color: rgba(0, 255, 255, 0.15);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-40px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    @keyframes floatAlt {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(50px) translateX(-30px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+
+    header {
+      padding: 2rem;
+      text-align: center;
+      background-color: #000;
+      border-bottom: 1px solid #444;
+      z-index: 1;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      animation: fadeInDown 1.2s ease forwards;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #aaa;
+      animation: fadeInDown 1.6s ease forwards;
+    }
+
+    main {
+      padding: 4rem 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+    }
+
+    main h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      animation: fadeInUp 1.2s ease forwards;
+    }
+
+    main p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      animation: fadeInUp 1.5s ease forwards;
+    }
+
+    .btn-projetos {
+      background-color: #0ff;
+      color: black;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.3rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      animation: fadeInUp 1.8s ease forwards;
+    }
+
+    .btn-projetos:hover {
+      background-color: #00bbbb;
+      transform: scale(1.05);
+    }
+
+    section {
+      margin-top: 4rem;
+      text-align: center;
+      animation: fadeInUp 2s ease forwards;
+    }
+
+    section h3 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #0ff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+      background-color: #000;
+      border-top: 1px solid #333;
+      margin-top: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Separador visual entre seções */
+    .separator {
+      margin: 4rem auto;
+      height: 80px;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .separator-line {
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, transparent, cyan, transparent);
+      animation: glow 3s infinite ease-in-out;
+    }
+
+.separator-icons-wrapper {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  top: -12px;
+  height: 40px;
+  z-index: 2;
+}
+
+.separator-icons {
+  display: flex;
+  width: max-content; /* largura de acordo com o conteúdo */
+  animation: floatIcons 12s linear infinite;
+}
+
+.separator-icons span {
+  font-size: 24px;
+  color: #0ff;
+  opacity: 0.7;
+  margin-right: 1.5rem;
+  transform: rotate(15deg);
+}
+    @keyframes glow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes floatIcons {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Formas geométricas no fundo (mais quantidade) -->
+  <div class="shape" style="width: 80px; height: 80px; top: 10%; left: 20%;"></div>
+  <div class="shape square" style="width: 60px; height: 60px; top: 30%; left: 70%;"></div>
+  <div class="shape" style="width: 100px; height: 100px; top: 60%; left: 10%;"></div>
+  <div class="shape square" style="width: 50px; height: 50px; top: 80%; left: 80%;"></div>
+  <div class="shape" style="width: 120px; height: 120px; top: 45%; left: 50%;"></div>
+  <div class="shape triangle" style="width: 60px; height: 60px; top: 20%; left: 40%;"></div>
+  <div class="shape cross" style="width: 60px; height: 60px; top: 70%; left: 30%;"></div>
+  <div class="shape triangle" style="width: 40px; height: 40px; top: 85%; left: 60%;"></div>
+  <div class="shape cross" style="width: 50px; height: 50px; top: 50%; left: 75%;"></div>
+
+  <header>
+    <h1>Ricardo Albuquerque Santos</h1>
+    <p>Videojogos | Aplicações Multimédia</p>
+  </header>
+
+  <main>
+    <h2>Bem-vindo ao meu website</h2>
+    <p>Descobre os meus projetos desenvolvidos ao longo do curso!</p>
+    <a class="btn-projetos" href="portfolio.html">Ver Projetos Interativos</a>
+
+    <!-- Separador criativo -->
+<!-- Só a parte da separator atualizada -->
+<div class="separator">
+  <div class="separator-line"></div>
+  <div class="separator-icons-wrapper">
+    <div class="separator-icons">
+      <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+      <!-- Duplicação para loop suave -->
+      <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+            <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+            <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+            <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+    </div>
+  </div>
+</div>
+
+    <section>
+      <h3>Sobre Mim</h3>
+      <p>Ambiciono seguir a àrea de programação na indústria dos Videojogos. Sou um apaixonado pelas experiências virtuais e possuo uma vontade infindável de aprender. Atualmente estudo Videojogos e Aplicações Multimédia na Universidade Lusófona do Porto, sempre com o foco em aprofundar os meus conhecimentos no mundo da multimédia e do entretenimento. </p>
+    </section>
+
+    <!-- Outro separador -->
+<!-- Só a parte da separator atualizada -->
+<div class="separator">
+  <div class="separator-line"></div>
+  <div class="separator-icons-wrapper">
+    <div class="separator-icons">
+      <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+      <!-- Duplicação para loop suave -->
+      <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+            <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+            <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+            <span>◯</span>
+      <span>▢</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>◯</span>
+      <span>△</span>
+      <span>✕</span>
+      <span>▢</span>
+    </div>
+  </div>
+</div>
+
+    <section>
+      <h3>Contacto</h3>
+      <p>📧 ricardogun10@gmail.com</p>
+      <p>📷 <a href="https://www.instagram.com/ricardo_san_2005" target="_blank" style="color:#0ff;">@ricardo_san_2005</a></p>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Ricardo Albuquerque Santos. Todos os direitos reservados.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Museu Interativo Minimalista</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: url('imagens/tijolos.jpg') repeat;
+      background-size: cover;
+      background-color: #000000d0;
+    }
+
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: transparent;
+      z-index: -2;
+    }
+
+    .particle {
+      position: absolute;
+      width: 0.3vw;
+      height: 0.3vw;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      animation: float 10s linear infinite;
+    }
+
+    @keyframes float {
+      0% {transform: translateY(100vh);}
+      100% {transform: translateY(-10vh);}
+    }
+
+    .container {
+        position: relative;
+
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 0;
+    }
+    
+.panel-central {
+  position: absolute;
+  top: 40%; /* ajusta conforme necessário */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw; /* ou o tamanho desejado */
+  aspect-ratio: 16 / 9;
+  background: url('imagens/Painel.png') no-repeat center/contain;
+  z-index: 2; /* garantir que fique à frente de elementos com z-index baixo */
+}
+
+    .fundo-painel {
+      position: absolute;
+      top: 27.55%;
+      left: 30.2%;
+      width: 39.4%;
+      height: 43.9%;
+      background-color: rgba(0, 0, 0, 0.8);
+      border-radius: 1vw;
+      z-index: 0;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .mensagem-energia {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 15vw;
+      color: red;
+      text-shadow: 0.2vw 0.2vw 0.6vw black;
+      z-index: 5;
+      display: none;
+      pointer-events: none;
+      animation: blink 1s infinite;
+    }
+
+    .fullscreen-btn {
+      position: absolute;
+      bottom: 2vh;
+      right: 2vw;
+      padding: 1vh 2vw;
+      background: #222;
+      color: white;
+      border: none;
+      border-radius: 1vw;
+      font-size: 1.2vw;
+      z-index: 10;
+      transition: opacity 0.3s;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .fullscreen-btn.active {
+      opacity: 1;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .recipiente {
+      position: absolute;
+      bottom: 0;
+      left: 10%;
+      transform: translateX(-50%);
+      width: 50vw;
+      height: 30vh;
+      background: url('imagens/Recipiente.png') no-repeat center/contain;
+      z-index: 3;
+    }
+
+.zona-pilhas {
+  position: absolute;
+  bottom: -3%;
+  transform: translateX(-50%);
+  width: 42vw;
+  height: 30vh;
+  background: url('imagens/TransformadorVazio.png') no-repeat center/contain;
+  z-index: 0;
+}
+.zona-pilhas1 { left: 35%; }
+.zona-pilhas2 { left: 50%; }
+.zona-pilhas3 { left: 65%; }
+
+    .comando {
+      position: absolute;
+      bottom: 0%;
+      left: 85%;
+      transform: translateX(-50%);
+      width: 50vw;
+      height: 38vh;
+      background: url('imagens/Comando.png') no-repeat center/contain;
+      z-index: 3;
+    }
+
+    .comando button {
+      position: absolute;
+      width: 3vw;
+      height: 5vw;
+      border: none;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0);
+      cursor: pointer;
+    }
+
+    .comando button:hover {
+      background-color: rgba(255, 255, 255, 0.0);
+    }
+
+    .btn1 { top: 37%; left: 43%; }
+    .btn2 { top: 37%; left: 51%; }
+
+    .caixa-texto {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 2vh 3vw;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #000;
+      font-size: 2vw;
+      border-radius: 1vw;
+      box-shadow: 0 0 1vw rgba(0,0,0,0.5);
+      z-index: 4;
+      display: none;
+    }
+
+    .popup {
+      position: fixed;
+      background: white;
+      border: 0.2vw solid black;
+      padding: 4vh;
+      width: 90vw;
+      height: 90vh;
+      display: none;
+      box-shadow: 0 0 2vw rgba(0,0,0,0.5);
+      z-index: 1000;
+      border-radius: 1vw;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2vw;
+      text-align: center;
+    }
+
+    .popup button {
+      margin-top: 4vh;
+      padding: 1vh 2vw;
+      font-size: 1.2vw;
+      border: none;
+      border-radius: 0.6vw;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+    }
+
+    .battery {
+      position: absolute;
+      width: 10vw;
+      height: 13vh;
+      background: url('imagens/Pilha.png') no-repeat center/contain;
+      background-size: contain;
+      cursor: grab;
+      user-select: none;
+      z-index: 20;
+    }
+
+    @keyframes painelPiscar {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.9; }
+  100% { opacity: 0.3; }
+}
+
+.fundo-painel.ativa {
+  animation: painelPiscar 1s ease-in-out infinite;
+}
+
+    .imagem-pagina {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+      z-index: 1;
+    }
+
+    #estadoPilhas {
+      position: absolute;
+      bottom: 29.5%;
+      left: 32%;
+      font-size: 2.5vw;
+      color: yellow;
+      text-shadow: 0.1vw 0.1vw 0.5vw black;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+.header-painel {
+  position: absolute;
+  top: 10%;
+  width: 25%;
+  height: 20vh; /* altura do painel */
+  background: url('imagens/Header.png') no-repeat center;
+  background-size: cover;
+  z-index: 0;
+}
+
+.titulo-projetos {
+  position: absolute;
+  bottom: 5.7vh;
+  left: 5.6vw;
+  font-size: 3.8vw;
+  color: white;
+  text-shadow: 0.3vw 0.3vw 0.5vw black;
+  z-index: 3;
+}
+
+  </style>
+</head>
+<body>
+
+  <button id="btnVoltar" style="
+  position: absolute;
+  top: 2vh;
+  left: 1vw;
+  padding: 0.8vh 1.5vw;
+  font-size: 1.5vw;
+  border: none;
+  border-radius: 1vw;
+  background-color: #38515850;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+">Voltar</button>
+
+  <div class="header-painel">
+    <div class="titulo-projetos">Projetos</div>
+  </div>
+ <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <div class="panel-central">
+      <div class="fundo-painel">
+<div id="indicadorPagina" style="  position: absolute;
+  top: 2vh;
+  right: 2vw;
+  font-size: 2.5vw;
+  color: white;
+  text-shadow: 0.2vw 0.2vw 0.5vw black;
+  z-index: 10;
+">0/3
+</div>
+        <img id="imagemPagina1" class="imagem-pagina" src="imagens/Hurrya.png" alt="Hurrya" />
+        <img id="imagemPagina2" class="imagem-pagina" src="imagens/InTempo.png" alt="InTempo" />
+        <img id="imagemPagina3" class="imagem-pagina" src="imagens/Huddle.png" alt="Huddle" />
+      </div>
+      <div id="caixaTexto" class="caixa-texto">O sistema está operacional.</div>
+      <div id="estadoPilhas">0/1</div>
+      <div id="mensagemEnergia" class="mensagem-energia">⚡</div>
+      <button id="fullscreenBtn" class="fullscreen-btn"></button>
+    </div>
+
+    <div class="recipiente"></div>
+    <div class="zona-pilhas zona-pilhas1"></div>
+    <div class="zona-pilhas zona-pilhas2"></div>
+    <div class="zona-pilhas zona-pilhas3"></div>
+
+    <div class="comando">
+      <button class="btn1" onclick="botao1()"></button>
+      <button class="btn2" onclick="botao2()"></button>
+    </div>
+
+    <div id="popup" class="popup">
+      Bem-vindo ao modo de apresentação completa!<br />
+      <button id="closePopupBtn">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    const container = document.querySelector('.container');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const popup = document.getElementById('popup');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+    const recipiente = document.querySelector('.recipiente');
+    const zonaPilhasList = document.querySelectorAll('.zona-pilhas');
+    const mensagemEnergia = document.getElementById('mensagemEnergia');
+    const estadoPilhas = document.getElementById('estadoPilhas');
+    const batteries = [];
+
+    let paginaAtual = 1;
+    const pilhasNecessarias = [1, 2, 3];
+    let pilhasAtivas = 0;
+
+    const imagensPaginas = [
+      document.getElementById('imagemPagina1'),
+      document.getElementById('imagemPagina2'),
+      document.getElementById('imagemPagina3')
+    ];
+
+
+  const indicadorPagina = document.getElementById('indicadorPagina');
+
+function mostrarPagina(index) {
+  
+  indicadorPagina.textContent = `${index}/${imagensPaginas.length}`;
+}
+
+    function isOverlapping(el1, el2) {
+      const r1 = el1.getBoundingClientRect();
+      const r2 = el2.getBoundingClientRect();
+      const shrink = -0.2;
+      const r2width = r2.width * shrink;
+      const r2height = r2.height * shrink;
+      const r2centerX = r2.left + r2.width / 2;
+      const r2centerY = r2.top + r2.height / 2;
+
+      const r2shrink = {
+        left: r2centerX - r2width / 2,
+        right: r2centerX + r2width / 2,
+        top: r2centerY - r2height / 2,
+        bottom: r2centerY + r2height / 2
+      };
+
+      return !(r1.right < r2shrink.left || r1.left > r2shrink.right || r1.bottom < r2shrink.top || r1.top > r2shrink.bottom);
+    }
+
+    function contarPilhasAtivas() {
+      let contador = 0;
+      for (let zona of zonaPilhasList) {
+        for (let battery of batteries) {
+          if (isOverlapping(battery, zona)) {
+            contador++;
+            break;
+          }
+        }
+      }
+      return contador;
+    }
+
+    function atualizarEstadoEnergia() {
+      pilhasAtivas = contarPilhasAtivas();
+      const pilhasNec = pilhasNecessarias[paginaAtual - 1];
+      estadoPilhas.textContent = `${pilhasAtivas}/${pilhasNec}`;
+
+      const fundoPainel = document.querySelector('.fundo-painel');
+
+      if (pilhasAtivas >= pilhasNec) {
+        mensagemEnergia.style.display = "none";
+        fundoPainel.classList.remove("ativa");
+        fundoPainel.style.opacity = "0.9";
+        estadoPilhas.style.display = "none";
+            indicadorPagina.style.display = 'block';
+
+        imagensPaginas.forEach((img, index) => {
+          img.style.display = (index === paginaAtual - 1) ? 'block' : 'none';
+        });
+      } else {
+        mensagemEnergia.style.display = "block";
+        fundoPainel.classList.add("ativa");
+        fundoPainel.style.opacity = "1";
+        estadoPilhas.style.display = "block"; // mostrar contador quando NÃO há energia
+            indicadorPagina.style.display = 'none';
+
+        imagensPaginas.forEach(img => {
+          img.style.display = 'none';
+        });
+      }
+    }
+
+    setInterval(atualizarEstadoEnergia, 100);
+
+function criarBateria(xPercent, yPercent) {
+  const battery = document.createElement('div');
+  battery.className = 'battery';
+  battery.draggable = false;
+  battery.style.position = "absolute";
+
+  // Posicionar em percentagem
+  battery.style.left = `${xPercent}%`;
+  battery.style.top = `${yPercent}%`;
+
+  let offsetX = 0, offsetY = 0;
+  let dragging = false;
+
+  const onMouseMove = (e) => {
+    if (!dragging) return;
+
+    const rect = container.getBoundingClientRect();
+    let newX = e.clientX - offsetX - rect.left;
+    let newY = e.clientY - offsetY - rect.top;
+
+    // Prevenir sair do container
+    newX = Math.max(0, Math.min(newX, container.clientWidth - battery.offsetWidth));
+    newY = Math.max(0, Math.min(newY, container.clientHeight - battery.offsetHeight));
+
+    // Converter para percentagem
+    const percentX = (newX / container.clientWidth) * 100;
+    const percentY = (newY / container.clientHeight) * 100;
+
+    battery.style.left = `${percentX}%`;
+    battery.style.top = `${percentY}%`;
+  };
+
+  const onMouseUp = () => {
+    if (dragging) {
+      dragging = false;
+      battery.style.zIndex = 20;
+      atualizarEstadoEnergia();
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    }
+  };
+
+  battery.addEventListener('mousedown', (e) => {
+    dragging = true;
+    const rect = battery.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+    battery.style.zIndex = 100;
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
+
+  container.appendChild(battery);
+  batteries.push(battery);
+}
+
+    function botao1() {
+      paginaAtual--;
+      if (paginaAtual < 1) paginaAtual = 3;
+      atualizarEstadoEnergia();
+    mostrarPagina(paginaAtual);
+
+    }
+
+    function botao2() {
+      paginaAtual++;
+      if (paginaAtual > 3) paginaAtual = 1;
+      atualizarEstadoEnergia();
+    mostrarPagina(paginaAtual);
+
+    }
+
+    fullscreenBtn.addEventListener('click', () => {
+      popup.style.display = 'block';
+    });
+
+    closePopupBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+
+criarBateria(6.5, 80); // 10% da largura, 80% da altura
+criarBateria(3.5, 79.5);
+criarBateria(5, 79);
+    atualizarEstadoEnergia();
+    mostrarPagina(paginaAtual);
+
+    document.getElementById('btnVoltar').addEventListener('click', () => {
+  window.history.back();
+});
+
+  </script>
+</body>
+</html>
