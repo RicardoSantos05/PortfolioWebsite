@@ -271,9 +271,66 @@
   z-index: 3;
 }
 
+.shape {
+      position: absolute;
+      border: 2px solid rgba(0, 255, 255, 0.15);
+      border-radius: 50%;
+      animation: float 20s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    .shape.square {
+      border-radius: 0;
+      animation: floatAlt 25s infinite ease-in-out;
+    }
+
+    .shape.triangle::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 30px solid transparent;
+      border-right: 30px solid transparent;
+      border-bottom: 52px solid rgba(0, 255, 255, 0.15);
+      top: 0;
+      left: 0;
+    }
+
+    .shape.cross::before {
+      content: '✕';
+      font-size: 40px;
+      color: rgba(0, 255, 255, 0.15);
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-40px) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    @keyframes floatAlt {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(50px) translateX(-30px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- Formas geométricas no fundo (mais quantidade) -->
+  <div class="shape" style="width: 80px; height: 80px; top: 10%; left: 20%;"></div>
+  <div class="shape square" style="width: 60px; height: 60px; top: 30%; left: 70%;"></div>
+  <div class="shape" style="width: 100px; height: 100px; top: 60%; left: 10%;"></div>
+  <div class="shape square" style="width: 50px; height: 50px; top: 80%; left: 80%;"></div>
+  <div class="shape" style="width: 120px; height: 120px; top: 45%; left: 50%;"></div>
+  <div class="shape triangle" style="width: 60px; height: 60px; top: 20%; left: 40%;"></div>
+  <div class="shape cross" style="width: 60px; height: 60px; top: 70%; left: 30%;"></div>
+  <div class="shape triangle" style="width: 40px; height: 40px; top: 85%; left: 60%;"></div>
+  <div class="shape cross" style="width: 50px; height: 50px; top: 50%; left: 75%;"></div>
 
   <button id="btnVoltar" style="
   position: absolute;
@@ -305,29 +362,6 @@
   text-shadow: 0.2vw 0.2vw 0.5vw black;
   z-index: 10;
 ">0/3
-</div>
-
-<div class="particles">
-  <svg id="geoBackground" width="100%" height="100%">
-    <!-- Círculos -->
-    <circle cx="10%" cy="20%" r="10" fill="white" opacity="0.4">
-      <animate attributeName="cy" values="100%; -10%" dur="18s" repeatCount="indefinite" />
-    </circle>
-    <circle cx="80%" cy="90%" r="6" fill="white" opacity="0.7">
-      <animate attributeName="cy" values="110%; -20%" dur="24s" repeatCount="indefinite" />
-    </circle>
-
-    <!-- Quadrado -->
-    <rect x="60%" y="110%" width="15" height="15" fill="white" opacity="0.5">
-      <animate attributeName="y" values="110%; -10%" dur="22s" repeatCount="indefinite" />
-    </rect>
-
-    <!-- Linha -->
-    <line x1="10%" y1="100%" x2="15%" y2="110%" stroke="white" stroke-width="2" opacity="0.08">
-      <animate attributeName="y1" values="110%; -10%" dur="20s" repeatCount="indefinite"/>
-      <animate attributeName="y2" values="120%; 0%" dur="20s" repeatCount="indefinite"/>
-    </line>
-  </svg>
 </div>
 
         <img id="imagemPagina1" class="imagem-pagina" src="imagens/Hurrya.png" alt="Hurrya" />
