@@ -306,6 +306,35 @@
   z-index: 10;
 ">0/3
 </div>
+
+<div class="particles">
+  <svg id="geoBackground" width="100%" height="100%">
+    <!-- Círculos -->
+    <circle cx="10%" cy="20%" r="10" fill="blue" opacity="0.1">
+      <animate attributeName="cy" values="100%; -10%" dur="18s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="80%" cy="90%" r="6" fill="blue" opacity="0.07">
+      <animate attributeName="cy" values="110%; -20%" dur="24s" repeatCount="indefinite" />
+    </circle>
+
+    <!-- Quadrado -->
+    <rect x="60%" y="110%" width="15" height="15" fill="blue" opacity="0.08">
+      <animate attributeName="y" values="110%; -10%" dur="22s" repeatCount="indefinite" />
+    </rect>
+
+    <!-- Triângulo -->
+    <polygon points="30,110 40,130 20,130" fill="blue" opacity="0.05" transform="translate(50%, 0)">
+      <animateTransform attributeName="transform" type="translate" from="0,110%" to="0,-10%" dur="28s" repeatCount="indefinite"/>
+    </polygon>
+
+    <!-- Linha -->
+    <line x1="10%" y1="100%" x2="15%" y2="110%" stroke="blue" stroke-width="2" opacity="0.08">
+      <animate attributeName="y1" values="110%; -10%" dur="20s" repeatCount="indefinite"/>
+      <animate attributeName="y2" values="120%; 0%" dur="20s" repeatCount="indefinite"/>
+    </line>
+  </svg>
+</div>
+
         <img id="imagemPagina1" class="imagem-pagina" src="imagens/Hurrya.png" alt="Hurrya" />
         <img id="imagemPagina2" class="imagem-pagina" src="imagens/InTempo.png" alt="InTempo" />
         <img id="imagemPagina3" class="imagem-pagina" src="imagens/Huddle.png" alt="Huddle" />
